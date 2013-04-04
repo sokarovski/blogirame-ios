@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 ID. All rights reserved.
 //
 
-@class ViewController;
+@class PostListViewController;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) ViewController *viewController;
+@property (strong, nonatomic) UINavigationController *navigationController;
 @end

@@ -11,10 +11,10 @@
 		0AF58C58170DE1B80031ED91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF58C57170DE1B80031ED91 /* Foundation.framework */; };
 		0AF58C5A170DE1B80031ED91 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF58C59170DE1B80031ED91 /* CoreGraphics.framework */; };
 		F919A7A5170DE92C0049D30C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F919A79E170DE92C0049D30C /* AppDelegate.m */; };
-		F919A7A6170DE92C0049D30C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F919A7A1170DE92C0049D30C /* ViewController.m */; };
+		F919A7A6170DE92C0049D30C /* PostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F919A7A1170DE92C0049D30C /* PostListViewController.m */; };
 		F919A7AA170DE9480049D30C /* Blogirame-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F919A7A7170DE9480049D30C /* Blogirame-Info.plist */; };
 		F919A7AB170DE9480049D30C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F919A7A9170DE9480049D30C /* main.m */; };
-		F919A7AD170DE9F20049D30C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F919A7AC170DE9F20049D30C /* ViewController.xib */; };
+		F919A7AD170DE9F20049D30C /* PostListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F919A7AC170DE9F20049D30C /* PostListViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,12 +24,12 @@
 		0AF58C59170DE1B80031ED91 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F919A79D170DE92C0049D30C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F919A79E170DE92C0049D30C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F919A7A0170DE92C0049D30C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F919A7A1170DE92C0049D30C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F919A7A0170DE92C0049D30C /* PostListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostListViewController.h; sourceTree = "<group>"; };
+		F919A7A1170DE92C0049D30C /* PostListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostListViewController.m; sourceTree = "<group>"; };
 		F919A7A7170DE9480049D30C /* Blogirame-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Blogirame-Info.plist"; sourceTree = SOURCE_ROOT; };
 		F919A7A8170DE9480049D30C /* Blogirame-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Blogirame-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		F919A7A9170DE9480049D30C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
-		F919A7AC170DE9F20049D30C /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		F919A7AC170DE9F20049D30C /* PostListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostListViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +100,7 @@
 			children = (
 				F919A79D170DE92C0049D30C /* AppDelegate.h */,
 				F919A79E170DE92C0049D30C /* AppDelegate.m */,
+				F919A7DD170DF3D70049D30C /* view */,
 				F919A79F170DE92C0049D30C /* controllers */,
 			);
 			path = objc;
@@ -108,8 +109,8 @@
 		F919A79F170DE92C0049D30C /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F919A7A0170DE92C0049D30C /* ViewController.h */,
-				F919A7A1170DE92C0049D30C /* ViewController.m */,
+				F919A7A0170DE92C0049D30C /* PostListViewController.h */,
+				F919A7A1170DE92C0049D30C /* PostListViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -124,7 +125,7 @@
 		F919A7A3170DE92C0049D30C /* xib */ = {
 			isa = PBXGroup;
 			children = (
-				F919A7AC170DE9F20049D30C /* ViewController.xib */,
+				F919A7AC170DE9F20049D30C /* PostListViewController.xib */,
 			);
 			path = xib;
 			sourceTree = "<group>";
@@ -134,6 +135,13 @@
 			children = (
 			);
 			path = test;
+			sourceTree = "<group>";
+		};
+		F919A7DD170DF3D70049D30C /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,7 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F919A7AA170DE9480049D30C /* Blogirame-Info.plist in Resources */,
-				F919A7AD170DE9F20049D30C /* ViewController.xib in Resources */,
+				F919A7AD170DE9F20049D30C /* PostListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F919A7A5170DE92C0049D30C /* AppDelegate.m in Sources */,
-				F919A7A6170DE92C0049D30C /* ViewController.m in Sources */,
+				F919A7A6170DE92C0049D30C /* PostListViewController.m in Sources */,
 				F919A7AB170DE9480049D30C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
