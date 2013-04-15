@@ -8,9 +8,16 @@
 
 #import "PostListViewController.h"
 #import "AFNetworking.h"
+#import "EntryCell.h"
+#import "AppSettings.h"
 
 @interface PostListViewController () {
     AFJSONRequestOperation *operation;
+    NSMutableArray *newestEntriesHeights;
+    NSMutableArray *topEntriesHeights;
+    NSArray *currentEntriesArray;
+    UIBarButtonItem *newestButtonItem;
+    UIBarButtonItem *topButtonItem;
 }
 
 @end
@@ -20,6 +27,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (!newestButtonItem) {
+        newestButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New"
+                                                            style:UIBarButtonItemStyleBordered
+                                                           target:self
+                                                           action:@selector(showNewestEntries)];
+    }
+    if (!topButtonItem) {
+        topButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Top"
+                                                            style:UIBarButtonItemStyleBordered
+                                                           target:self
+                                                           action:@selector(showTopEntries)];
+
+    }
+    [self setupToggleButton];
     //TODO show loading view
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -27,66 +48,167 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self fetchNewestPostsList];
-    //start download of the posts if they are not downloaded
+    if ([AppSettings shouldShowNewestPosts]) {
+        [self showNewestEntries];
+    } else {
+        [self showTopEntries];
+    }
+}
+
+- (void)setupToggleButton
+{
+    if ([AppSettings shouldShowNewestPosts]) {
+        [self.navigationItem setRightBarButtonItem:topButtonItem];
+    } else {
+        [self.navigationItem setRightBarButtonItem:newestButtonItem];
+    }
+}
+
+#pragma mark reloadView
+- (void)showNewestEntries
+{
+    [AppSettings setNewestPostsAsDefault];
+    if (!newestPosts) {
+        [self fetchNewestPostsList];
+    } else {
+        if ([myTableView numberOfRowsInSection:0] > 0) {
+            [myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        }
+        currentEntriesArray = nil;
+        currentEntriesArray = newestPosts;
+        [myTableView reloadData];
+    }
+    [self.navigationItem setTitle:@"Newest Entries"];
+    [self.navigationItem setRightBarButtonItem:topButtonItem];
+}
+
+- (void)showTopEntries
+{
+    [AppSettings setTopPostsAsDefault];
+    if (!topPosts) {
+        [self fetchTopPostsList];
+    } else {
+        if ([myTableView numberOfRowsInSection:0] > 0) {
+            [myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        }
+        currentEntriesArray = nil;
+        currentEntriesArray = topPosts;
+        [myTableView reloadData];
+    }
+    [self.navigationItem setTitle:@"Top Entries"];
+    [self.navigationItem setRightBarButtonItem:newestButtonItem];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [newestPosts count];
+    return [currentEntriesArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
+    EntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostItemCell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PostCell"];
+        cell = [[EntryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PostItemCell"];
     }
-    NSDictionary *postEntry = [newestPosts objectAtIndex:indexPath.row];
-    [cell.textLabel setText:[postEntry valueForKey:@"title"]];
+    NSDictionary *postEntry = [currentEntriesArray objectAtIndex:indexPath.row];
+    [cell setupWithEntry:postEntry];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableArray *entryHeights = nil;
+    if ([AppSettings shouldShowNewestPosts]) {
+        if (!newestPosts) {
+            return 0;
+        } else {
+            entryHeights = newestEntriesHeights;
+        }
+    } else {
+        if (!topPosts) {
+            return 0;
+        } else {
+            entryHeights = topEntriesHeights;
+        }
+    }
+    
+    if (entryHeights && [entryHeights count] > indexPath.row && ![[entryHeights objectAtIndex:indexPath.row] isEqual:[NSNull null]]) {
+        return [[entryHeights objectAtIndex:indexPath.row] floatValue];
+    } else {
+        CGFloat height = [EntryCell heightForEntry:[currentEntriesArray objectAtIndex:indexPath.row]];
+        [entryHeights replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithFloat:height]];
+        return height;
+    }
 }
 
 #pragma mark Data Download
 
 - (void)fetchNewestPostsList
 {
-    NSString *url = @"http://blogirame.mk/jsonapi/main";
-    NSURL *base = [NSURL URLWithString:url];
-    NSURLRequest *req = [NSURLRequest requestWithURL:base];
-    
-    operation = [AFJSONRequestOperation
-                 JSONRequestOperationWithRequest:req
-                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                     newestPosts = nil;
-                     newestPosts = [JSON objectForKey:@"results"];
-                     [myTableView reloadData];
-                 }
-                 failure:^(NSURLRequest *request, NSURLResponse *response, NSError *error ,id JSON) {
-                     NSLog(@"%@",[error debugDescription]);
-                 }];
-    
-    [operation start];
+    if (!newestPosts) {
+        NSString *url = @"http://blogirame.mk/jsonapi/main";
+        NSURL *base = [NSURL URLWithString:url];
+        NSURLRequest *req = [NSURLRequest requestWithURL:base];
+        
+        operation = [AFJSONRequestOperation
+                     JSONRequestOperationWithRequest:req
+                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                         newestPosts = nil;
+                         newestPosts = [JSON objectForKey:@"results"];
+                         newestEntriesHeights = nil;
+                         newestEntriesHeights = [[NSMutableArray alloc] initWithCapacity:[newestPosts count]];
+                         for (int i = 0; i < [newestPosts count]; i++) {
+                             [newestEntriesHeights addObject:[NSNull null]];
+                         }
+                         if ([AppSettings shouldShowNewestPosts]) {
+                             if ([myTableView numberOfRowsInSection:0] > 0) {
+                                 [myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                             }
+                             currentEntriesArray = nil;
+                             currentEntriesArray = newestPosts;
+                             [myTableView reloadData];
+                         }
+                     }
+                     failure:^(NSURLRequest *request, NSURLResponse *response, NSError *error ,id JSON) {
+                         NSLog(@"%@",[error debugDescription]);
+                     }];
+        
+        [operation start];
+    }
 }
 
 - (void)fetchTopPostsList
 {
-    NSString *url = @"http://blogirame.mk/jsonapi/main/order/popular/";
-    NSURL *base = [NSURL URLWithString:url];
-    NSURLRequest *req = [NSURLRequest requestWithURL:base];
-    
-    operation = [AFJSONRequestOperation
-                 JSONRequestOperationWithRequest:req
-                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                     topPosts = nil;
-                     topPosts = [JSON objectForKey:@"results"];
-                     [myTableView reloadData];
-                 }
-                 failure:^(NSURLRequest *request, NSURLResponse *response, NSError *error ,id JSON) {
-                     NSLog(@"%@",[error debugDescription]);
-                 }];
-    
-    [operation start];
+    if (!topPosts) {
+        NSString *url = @"http://blogirame.mk/jsonapi/main/order/popular/";
+        NSURL *base = [NSURL URLWithString:url];
+        NSURLRequest *req = [NSURLRequest requestWithURL:base];
+        
+        operation = [AFJSONRequestOperation
+                     JSONRequestOperationWithRequest:req
+                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                         topPosts = nil;
+                         topPosts = [JSON objectForKey:@"results"];
+                         topEntriesHeights = nil;
+                         topEntriesHeights = [[NSMutableArray alloc] initWithCapacity:[topPosts count]];
+                         for (int i = 0; i < [topPosts count]; i++) {
+                             [topEntriesHeights addObject:[NSNull null]];
+                         }
+                         if (![AppSettings shouldShowNewestPosts]) {
+                             if ([myTableView numberOfRowsInSection:0] > 0) {
+                                 [myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                             }
+                             currentEntriesArray = nil;
+                             currentEntriesArray = topPosts;
+                             [myTableView reloadData];
+                         }
+                     }
+                     failure:^(NSURLRequest *request, NSURLResponse *response, NSError *error ,id JSON) {
+                         NSLog(@"%@",[error debugDescription]);
+                     }];
+        
+        [operation start];
+    }
 }
 
 @end

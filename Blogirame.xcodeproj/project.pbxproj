@@ -19,6 +19,8 @@
 		0AF58C56170DE1B80031ED91 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF58C55170DE1B80031ED91 /* UIKit.framework */; };
 		0AF58C58170DE1B80031ED91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF58C57170DE1B80031ED91 /* Foundation.framework */; };
 		0AF58C5A170DE1B80031ED91 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF58C59170DE1B80031ED91 /* CoreGraphics.framework */; };
+		F91543BD171C3B67008802DC /* EntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F91543BC171C3B67008802DC /* EntryCell.m */; };
+		F91543C0171C4955008802DC /* AppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = F91543BF171C4955008802DC /* AppSettings.m */; };
 		F919A7A5170DE92C0049D30C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F919A79E170DE92C0049D30C /* AppDelegate.m */; };
 		F919A7A6170DE92C0049D30C /* PostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F919A7A1170DE92C0049D30C /* PostListViewController.m */; };
 		F919A7AA170DE9480049D30C /* Blogirame-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F919A7A7170DE9480049D30C /* Blogirame-Info.plist */; };
@@ -50,6 +52,10 @@
 		0AF58C55170DE1B80031ED91 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0AF58C57170DE1B80031ED91 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0AF58C59170DE1B80031ED91 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F91543BB171C3B67008802DC /* EntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryCell.h; sourceTree = "<group>"; };
+		F91543BC171C3B67008802DC /* EntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryCell.m; sourceTree = "<group>"; };
+		F91543BE171C4955008802DC /* AppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSettings.h; sourceTree = "<group>"; };
+		F91543BF171C4955008802DC /* AppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSettings.m; sourceTree = "<group>"; };
 		F919A79D170DE92C0049D30C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F919A79E170DE92C0049D30C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F919A7A0170DE92C0049D30C /* PostListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostListViewController.h; sourceTree = "<group>"; };
@@ -162,6 +168,8 @@
 		F919A79C170DE92C0049D30C /* objc */ = {
 			isa = PBXGroup;
 			children = (
+				F91543BE171C4955008802DC /* AppSettings.h */,
+				F91543BF171C4955008802DC /* AppSettings.m */,
 				F919A79D170DE92C0049D30C /* AppDelegate.h */,
 				F919A79E170DE92C0049D30C /* AppDelegate.m */,
 				F919A7DD170DF3D70049D30C /* view */,
@@ -204,6 +212,8 @@
 		F919A7DD170DF3D70049D30C /* view */ = {
 			isa = PBXGroup;
 			children = (
+				F91543BB171C3B67008802DC /* EntryCell.h */,
+				F91543BC171C3B67008802DC /* EntryCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -283,6 +293,8 @@
 				0AE007F4170DF87A00B3C736 /* AFURLConnectionOperation.m in Sources */,
 				0AE007F5170DF87A00B3C736 /* AFXMLRequestOperation.m in Sources */,
 				0AE007F6170DF87A00B3C736 /* UIImageView+AFNetworking.m in Sources */,
+				F91543BD171C3B67008802DC /* EntryCell.m in Sources */,
+				F91543C0171C4955008802DC /* AppSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
