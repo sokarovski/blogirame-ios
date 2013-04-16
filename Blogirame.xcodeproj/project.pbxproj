@@ -26,6 +26,9 @@
 		F919A7AA170DE9480049D30C /* Blogirame-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F919A7A7170DE9480049D30C /* Blogirame-Info.plist */; };
 		F919A7AB170DE9480049D30C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F919A7A9170DE9480049D30C /* main.m */; };
 		F919A7AD170DE9F20049D30C /* PostListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F919A7AC170DE9F20049D30C /* PostListViewController.xib */; };
+		F93C2D59171D814300D124F0 /* noimage.png in Resources */ = {isa = PBXBuildFile; fileRef = F93C2D57171D814300D124F0 /* noimage.png */; };
+		F93C2D5A171D814300D124F0 /* noimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F93C2D58171D814300D124F0 /* noimage@2x.png */; };
+		F93C2D5E171D84FC00D124F0 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = F93C2D5D171D84FC00D124F0 /* Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +67,10 @@
 		F919A7A8170DE9480049D30C /* Blogirame-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Blogirame-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		F919A7A9170DE9480049D30C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
 		F919A7AC170DE9F20049D30C /* PostListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostListViewController.xib; sourceTree = "<group>"; };
+		F93C2D57171D814300D124F0 /* noimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noimage.png; sourceTree = "<group>"; };
+		F93C2D58171D814300D124F0 /* noimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noimage@2x.png"; sourceTree = "<group>"; };
+		F93C2D5C171D84FC00D124F0 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		F93C2D5D171D84FC00D124F0 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +180,7 @@
 				F919A79D170DE92C0049D30C /* AppDelegate.h */,
 				F919A79E170DE92C0049D30C /* AppDelegate.m */,
 				F919A7DD170DF3D70049D30C /* view */,
+				F93C2D5B171D847E00D124F0 /* util */,
 				F919A79F170DE92C0049D30C /* controllers */,
 			);
 			path = objc;
@@ -190,6 +198,8 @@
 		F919A7A2170DE92C0049D30C /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				F93C2D57171D814300D124F0 /* noimage.png */,
+				F93C2D58171D814300D124F0 /* noimage@2x.png */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -216,6 +226,15 @@
 				F91543BC171C3B67008802DC /* EntryCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		F93C2D5B171D847E00D124F0 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				F93C2D5C171D84FC00D124F0 /* Utils.h */,
+				F93C2D5D171D84FC00D124F0 /* Utils.m */,
+			);
+			name = util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +290,8 @@
 			files = (
 				F919A7AA170DE9480049D30C /* Blogirame-Info.plist in Resources */,
 				F919A7AD170DE9F20049D30C /* PostListViewController.xib in Resources */,
+				F93C2D59171D814300D124F0 /* noimage.png in Resources */,
+				F93C2D5A171D814300D124F0 /* noimage@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +316,7 @@
 				0AE007F6170DF87A00B3C736 /* UIImageView+AFNetworking.m in Sources */,
 				F91543BD171C3B67008802DC /* EntryCell.m in Sources */,
 				F91543C0171C4955008802DC /* AppSettings.m in Sources */,
+				F93C2D5E171D84FC00D124F0 /* Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

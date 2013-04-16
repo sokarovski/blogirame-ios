@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "EntryCell.h"
 #import "AppSettings.h"
+#import "Utils.h"
 
 @interface PostListViewController () {
     AFJSONRequestOperation *operation;
@@ -153,13 +154,21 @@
         operation = [AFJSONRequestOperation
                      JSONRequestOperationWithRequest:req
                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                         newestPosts = nil;
-                         newestPosts = [JSON objectForKey:@"results"];
+                         NSArray *result = [JSON objectForKey:@"results"];
+                         NSMutableArray *editedResults = [NSMutableArray arrayWithCapacity:[result count]];
                          newestEntriesHeights = nil;
                          newestEntriesHeights = [[NSMutableArray alloc] initWithCapacity:[newestPosts count]];
-                         for (int i = 0; i < [newestPosts count]; i++) {
+                         for (int i = 0; i < [result count]; i++) {
+                             NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithDictionary:[result objectAtIndex:i]];
+                             [temp setValue:[Utils formattedDateStringFromDate:[temp valueForKey:@"date"]] forKey:@"formattedDate"];
+                             [editedResults addObject:temp];
+                             temp = nil;
                              [newestEntriesHeights addObject:[NSNull null]];
                          }
+                         
+                         newestPosts = nil;
+                         newestPosts = editedResults;
+                         
                          if ([AppSettings shouldShowNewestPosts]) {
                              if ([myTableView numberOfRowsInSection:0] > 0) {
                                  [myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
@@ -187,13 +196,22 @@
         operation = [AFJSONRequestOperation
                      JSONRequestOperationWithRequest:req
                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                         topPosts = nil;
-                         topPosts = [JSON objectForKey:@"results"];
+                         NSArray *result = [JSON objectForKey:@"results"];
+                         NSMutableArray *editedResults = [NSMutableArray arrayWithCapacity:[result count]];
+                         
                          topEntriesHeights = nil;
                          topEntriesHeights = [[NSMutableArray alloc] initWithCapacity:[topPosts count]];
-                         for (int i = 0; i < [topPosts count]; i++) {
+                         for (int i = 0; i < [result count]; i++) {
+                             NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithDictionary:[result objectAtIndex:i]];
+                             [temp setValue:[Utils formattedDateStringFromDate:[temp valueForKey:@"date"]] forKey:@"formattedDate"];
+                             [editedResults addObject:temp];
+                             temp = nil;
                              [topEntriesHeights addObject:[NSNull null]];
                          }
+                         
+                         topPosts = nil;
+                         topPosts = editedResults;
+                         
                          if (![AppSettings shouldShowNewestPosts]) {
                              if ([myTableView numberOfRowsInSection:0] > 0) {
                                  [myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];

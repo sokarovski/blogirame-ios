@@ -15,7 +15,6 @@
     UILabel *descriptionLabel;
     UILabel *dateLabel;
     UILabel *blogTitleLabel;
-    BOOL hasImage;
 }
 
 - (void)setupWithEntry:(NSDictionary *)entry;
