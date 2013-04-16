@@ -9,13 +9,14 @@
 #import "EntryCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "Utils.h"
+#import "UIColor+WebColors.h"
 
 @implementation EntryCell
 
 #define TITLE_FONT [UIFont boldSystemFontOfSize:15]
 #define DESCRIPTION_FONT [UIFont systemFontOfSize:13]
 #define BLOG_TITLE_FONT [UIFont boldSystemFontOfSize:12]
-#define BLOG_TITLE_COLOR [UIColor colorWithRed:0.701 green:0.831 blue:0.988 alpha:1]
+#define BLOG_TITLE_COLOR [UIColor colorWithHex:0xB3D4FC]
 #define DATE_FONT [UIFont systemFontOfSize:12]
 #define DATE_FONT_COLOR [UIColor lightGrayColor]
 static UIImage *placeholderImage;

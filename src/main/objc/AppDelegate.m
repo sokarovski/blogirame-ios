@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
 #import "PostListViewController.h"
+#import "UIColor+WebColors.h"
 
 @implementation AppDelegate
 
@@ -19,7 +19,7 @@
                                         initWithNibName:@"PostListViewController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:rootView];
     //tint color HEX:4c4b71
-    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:0.298 green:0.294 blue:0.439 alpha:1]];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithHex:0x4C4B71]];
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;

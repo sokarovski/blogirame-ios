@@ -201,6 +201,7 @@
                          
                          topEntriesHeights = nil;
                          topEntriesHeights = [[NSMutableArray alloc] initWithCapacity:[topPosts count]];
+                         //AGA: formatted date is cached, because it is expensive operation
                          for (int i = 0; i < [result count]; i++) {
                              NSMutableDictionary *temp = [NSMutableDictionary dictionaryWithDictionary:[result objectAtIndex:i]];
                              [temp setValue:[Utils formattedDateStringFromDate:[temp valueForKey:@"date"]] forKey:@"formattedDate"];
