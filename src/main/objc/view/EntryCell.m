@@ -58,7 +58,6 @@ static UIImage *placeholderImage;
             placeholderImage = [UIImage imageNamed:@"noimage.png"];
         }
         
-        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return self;
 }

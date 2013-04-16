@@ -11,6 +11,8 @@
 #import "EntryCell.h"
 #import "AppSettings.h"
 #import "Utils.h"
+#import "AppDelegate.h"
+#import "AppDelegate+Navigation.h"
 
 @interface PostListViewController () {
     AFJSONRequestOperation *operation;
@@ -100,6 +102,7 @@
     [self.navigationItem setRightBarButtonItem:newestButtonItem];
 }
 
+#pragma mark TableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [currentEntriesArray count];
@@ -142,8 +145,16 @@
     }
 }
 
-#pragma mark Data Download
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *postEntry = [currentEntriesArray objectAtIndex:indexPath.row];
+    if (postEntry) {
+        NSDictionary *values = [NSDictionary dictionaryWithObject:postEntry forKey:@"postEntry"];
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] showEntryDetailViewWithValues:values];
+    }
+}
 
+#pragma mark Data Download
 - (void)fetchNewestPostsList
 {
     if (!newestPosts) {

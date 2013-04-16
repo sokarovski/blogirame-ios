@@ -30,6 +30,8 @@
 		F93C2D5A171D814300D124F0 /* noimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F93C2D58171D814300D124F0 /* noimage@2x.png */; };
 		F93C2D67171D93B900D124F0 /* UIColor+WebColors.m in Sources */ = {isa = PBXBuildFile; fileRef = F93C2D64171D93B900D124F0 /* UIColor+WebColors.m */; };
 		F93C2D68171D93B900D124F0 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = F93C2D66171D93B900D124F0 /* Utils.m */; };
+		F93C2D6B171D959500D124F0 /* AppDelegate+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = F93C2D6A171D959500D124F0 /* AppDelegate+Navigation.m */; };
+		F93C2D6E171D95DC00D124F0 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F93C2D6D171D95DC00D124F0 /* WebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +76,10 @@
 		F93C2D64171D93B900D124F0 /* UIColor+WebColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WebColors.m"; sourceTree = "<group>"; };
 		F93C2D65171D93B900D124F0 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		F93C2D66171D93B900D124F0 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		F93C2D69171D959500D124F0 /* AppDelegate+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Navigation.h"; sourceTree = "<group>"; };
+		F93C2D6A171D959500D124F0 /* AppDelegate+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Navigation.m"; sourceTree = "<group>"; };
+		F93C2D6C171D95DC00D124F0 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		F93C2D6D171D95DC00D124F0 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +189,8 @@
 				F91543BF171C4955008802DC /* AppSettings.m */,
 				F919A79D170DE92C0049D30C /* AppDelegate.h */,
 				F919A79E170DE92C0049D30C /* AppDelegate.m */,
+				F93C2D69171D959500D124F0 /* AppDelegate+Navigation.h */,
+				F93C2D6A171D959500D124F0 /* AppDelegate+Navigation.m */,
 				F919A7DD170DF3D70049D30C /* view */,
 				F919A79F170DE92C0049D30C /* controllers */,
 			);
@@ -194,6 +202,8 @@
 			children = (
 				F919A7A0170DE92C0049D30C /* PostListViewController.h */,
 				F919A7A1170DE92C0049D30C /* PostListViewController.m */,
+				F93C2D6C171D95DC00D124F0 /* WebViewController.h */,
+				F93C2D6D171D95DC00D124F0 /* WebViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -323,6 +333,8 @@
 				F91543C0171C4955008802DC /* AppSettings.m in Sources */,
 				F93C2D67171D93B900D124F0 /* UIColor+WebColors.m in Sources */,
 				F93C2D68171D93B900D124F0 /* Utils.m in Sources */,
+				F93C2D6B171D959500D124F0 /* AppDelegate+Navigation.m in Sources */,
+				F93C2D6E171D95DC00D124F0 /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
