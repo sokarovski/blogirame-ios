@@ -19,8 +19,6 @@
     NSMutableArray *newestEntriesHeights;
     NSMutableArray *topEntriesHeights;
     NSArray *currentEntriesArray;
-    UIBarButtonItem *newestButtonItem;
-    UIBarButtonItem *topButtonItem;
 }
 
 @end
@@ -30,20 +28,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (!newestButtonItem) {
-        newestButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New"
-                                                            style:UIBarButtonItemStyleBordered
-                                                           target:self
-                                                           action:@selector(showNewestEntries)];
-    }
-    if (!topButtonItem) {
-        topButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Top"
-                                                            style:UIBarButtonItemStyleBordered
-                                                           target:self
-                                                           action:@selector(showTopEntries)];
-
-    }
-    [self setupToggleButton];
     //TODO show loading view
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -58,19 +42,9 @@
     }
 }
 
-- (void)setupToggleButton
-{
-    if ([AppSettings shouldShowNewestPosts]) {
-        [self.navigationItem setRightBarButtonItem:topButtonItem];
-    } else {
-        [self.navigationItem setRightBarButtonItem:newestButtonItem];
-    }
-}
-
 #pragma mark reloadView
 - (void)showNewestEntries
 {
-    [AppSettings setNewestPostsAsDefault];
     if (!newestPosts) {
         [self fetchNewestPostsList];
     } else {
@@ -81,13 +55,10 @@
         currentEntriesArray = newestPosts;
         [myTableView reloadData];
     }
-    [self.navigationItem setTitle:@"Newest Entries"];
-    [self.navigationItem setRightBarButtonItem:topButtonItem];
 }
 
 - (void)showTopEntries
 {
-    [AppSettings setTopPostsAsDefault];
     if (!topPosts) {
         [self fetchTopPostsList];
     } else {
@@ -98,8 +69,6 @@
         currentEntriesArray = topPosts;
         [myTableView reloadData];
     }
-    [self.navigationItem setTitle:@"Top Entries"];
-    [self.navigationItem setRightBarButtonItem:newestButtonItem];
 }
 
 #pragma mark TableView
@@ -240,5 +209,7 @@
         [operation start];
     }
 }
+
+
 
 @end

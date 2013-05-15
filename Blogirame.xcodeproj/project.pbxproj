@@ -32,6 +32,9 @@
 		F93C2D68171D93B900D124F0 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = F93C2D66171D93B900D124F0 /* Utils.m */; };
 		F93C2D6B171D959500D124F0 /* AppDelegate+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = F93C2D6A171D959500D124F0 /* AppDelegate+Navigation.m */; };
 		F93C2D6E171D95DC00D124F0 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F93C2D6D171D95DC00D124F0 /* WebViewController.m */; };
+		F9B5E31D1743D84E004FAC19 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B5E31C1743D84D004FAC19 /* ContentViewController.m */; };
+		F9B5E3201743DCF9004FAC19 /* CategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B5E31F1743DCF9004FAC19 /* CategoriesViewController.m */; };
+		F9B5E3221743DD46004FAC19 /* CategoriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9B5E3211743DD46004FAC19 /* CategoriesViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +83,11 @@
 		F93C2D6A171D959500D124F0 /* AppDelegate+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Navigation.m"; sourceTree = "<group>"; };
 		F93C2D6C171D95DC00D124F0 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		F93C2D6D171D95DC00D124F0 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		F9B5E31B1743D84D004FAC19 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
+		F9B5E31C1743D84D004FAC19 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
+		F9B5E31E1743DCF8004FAC19 /* CategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesViewController.h; sourceTree = "<group>"; };
+		F9B5E31F1743DCF9004FAC19 /* CategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesViewController.m; sourceTree = "<group>"; };
+		F9B5E3211743DD46004FAC19 /* CategoriesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriesViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +212,10 @@
 				F919A7A1170DE92C0049D30C /* PostListViewController.m */,
 				F93C2D6C171D95DC00D124F0 /* WebViewController.h */,
 				F93C2D6D171D95DC00D124F0 /* WebViewController.m */,
+				F9B5E31B1743D84D004FAC19 /* ContentViewController.h */,
+				F9B5E31C1743D84D004FAC19 /* ContentViewController.m */,
+				F9B5E31E1743DCF8004FAC19 /* CategoriesViewController.h */,
+				F9B5E31F1743DCF9004FAC19 /* CategoriesViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -221,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				F919A7AC170DE9F20049D30C /* PostListViewController.xib */,
+				F9B5E3211743DD46004FAC19 /* CategoriesViewController.xib */,
 			);
 			path = xib;
 			sourceTree = "<group>";
@@ -307,6 +320,7 @@
 				F919A7AD170DE9F20049D30C /* PostListViewController.xib in Resources */,
 				F93C2D59171D814300D124F0 /* noimage.png in Resources */,
 				F93C2D5A171D814300D124F0 /* noimage@2x.png in Resources */,
+				F9B5E3221743DD46004FAC19 /* CategoriesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +349,8 @@
 				F93C2D68171D93B900D124F0 /* Utils.m in Sources */,
 				F93C2D6B171D959500D124F0 /* AppDelegate+Navigation.m in Sources */,
 				F93C2D6E171D95DC00D124F0 /* WebViewController.m in Sources */,
+				F9B5E31D1743D84E004FAC19 /* ContentViewController.m in Sources */,
+				F9B5E3201743DCF9004FAC19 /* CategoriesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

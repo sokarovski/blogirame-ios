@@ -13,5 +13,9 @@
     IBOutlet UITableView *myTableView;
     NSMutableArray *topPosts;
     NSMutableArray *newestPosts;
+    NSMutableArray *categories;
 }
+
+- (void)showNewestEntries;
+- (void)showTopEntries;
 @end
