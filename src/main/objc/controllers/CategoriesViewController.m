@@ -50,6 +50,8 @@
                      }];
         
         [operation start];
+    } else {
+        [myTableView reloadData];
     }
 }
 
@@ -66,7 +68,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CategoryCell"];
     }
     NSDictionary *category = [categories objectAtIndex:indexPath.row];
-    [cell.textLabel setText:[category valueForKey:@"text"]];
+    [cell.textLabel setText:[category valueForKey:@"name"]];
     return cell;
 }
 

@@ -24,6 +24,7 @@
     UIBarButtonItem *categoriesButtonItem;
     PostListViewController *itemsVC;
     CategoriesViewController *categoriesVC;
+    BOOL sideMenuVisible;
 }
 @end
     
@@ -71,6 +72,7 @@
     if (!categoriesVC) {
         categoriesVC = [[CategoriesViewController alloc] initWithNibName:@"CategoriesViewController" bundle:nil];
     }
+    [self.view insertSubview:categoriesVC.view belowSubview:itemsVC.view];
     [self addChildViewController:categoriesVC];
 }
 
@@ -84,6 +86,9 @@
 #pragma mark BarButtonItem
 - (void)showNewestEntries
 {
+    if (sideMenuVisible) {
+        [self hideSideMenu];
+    }
     [AppSettings setNewestPostsAsDefault];
     [self.navigationItem setTitle:@"Newest Entries"];
     [self.navigationItem setRightBarButtonItem:topButtonItem];
@@ -92,6 +97,10 @@
 
 - (void)showTopEntries
 {
+    if (sideMenuVisible) {
+        [self hideSideMenu];
+    }
+    
     [AppSettings setTopPostsAsDefault];
     [self.navigationItem setTitle:@"Top Entries"];
     [self.navigationItem setRightBarButtonItem:newestButtonItem];
@@ -100,6 +109,39 @@
 
 - (void)showCategories
 {
-    [categoriesVC showCategories];
+    if (!sideMenuVisible) {
+        [categoriesVC showCategories];
+        [self showSideMenu];
+    } else {
+        [self hideSideMenu];
+    }
+}
+
+- (void)showSideMenu
+{
+    sideMenuVisible = YES;
+    CGPoint origin = CGPointMake(250, 0);
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         CGRect itemsFrame = itemsVC.view.frame;
+                         itemsFrame.origin = origin;
+                         [itemsVC.view setFrame:itemsFrame];
+                     }
+                     completion:^(BOOL finished) {
+    }];
+}
+
+- (void)hideSideMenu
+{
+    sideMenuVisible = NO;
+    CGPoint origin = CGPointMake(0, 0);
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         CGRect itemsFrame = itemsVC.view.frame;
+                         itemsFrame.origin = origin;
+                         [itemsVC.view setFrame:itemsFrame];
+                     }
+                     completion:^(BOOL finished) {
+    }];
 }
 @end
