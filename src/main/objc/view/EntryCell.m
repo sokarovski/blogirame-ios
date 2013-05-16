@@ -75,10 +75,26 @@ static UIImage *placeholderImage;
 
 - (void)setupWithEntry:(NSDictionary *)entry
 {
-    [titleLabel setText:[entry valueForKey:@"title"]];
-    [blogTitleLabel setText:[entry valueForKey:@"feedTitle"]];
-    [descriptionLabel setText:[entry valueForKey:@"description"]];
-    [dateLabel setText:[entry valueForKey:@"formattedDate"]];
+    if (![[entry valueForKey:@"title"] isKindOfClass:[NSNull class]]) {
+        [titleLabel setText:[entry valueForKey:@"title"]];
+    } else {
+        [titleLabel setText:@""];
+    }
+    if (![[entry valueForKey:@"feedTitle"] isKindOfClass:[NSNull class]]) {
+        [blogTitleLabel setText:[entry valueForKey:@"feedTitle"]];
+    } else {
+        [blogTitleLabel setText:@""];
+    }
+    if (![[entry valueForKey:@"description"] isKindOfClass:[NSNull class]]) {
+       [descriptionLabel setText:[entry valueForKey:@"description"]];
+    } else {
+        [descriptionLabel setText:@""];
+    }
+    if (![[entry valueForKey:@"formattedDate"] isKindOfClass:[NSNull class]]) {
+        [dateLabel setText:[entry valueForKey:@"formattedDate"]];
+    } else {
+        [dateLabel setText:@""];
+    }
     
     NSURL *imageURL = nil;
     if (![[entry valueForKey:@"thumb"] isKindOfClass:[NSNull class]]) {

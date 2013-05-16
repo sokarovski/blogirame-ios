@@ -35,6 +35,7 @@
 		F9B5E31D1743D84E004FAC19 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B5E31C1743D84D004FAC19 /* ContentViewController.m */; };
 		F9B5E3201743DCF9004FAC19 /* CategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9B5E31F1743DCF9004FAC19 /* CategoriesViewController.m */; };
 		F9B5E3221743DD46004FAC19 /* CategoriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9B5E3211743DD46004FAC19 /* CategoriesViewController.xib */; };
+		F9FE418D17456684007C2473 /* AppDelegate+StatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F9FE418C17456684007C2473 /* AppDelegate+StatusBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,8 @@
 		F9B5E31E1743DCF8004FAC19 /* CategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesViewController.h; sourceTree = "<group>"; };
 		F9B5E31F1743DCF9004FAC19 /* CategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesViewController.m; sourceTree = "<group>"; };
 		F9B5E3211743DD46004FAC19 /* CategoriesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriesViewController.xib; sourceTree = "<group>"; };
+		F9FE418B17456684007C2473 /* AppDelegate+StatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+StatusBar.h"; sourceTree = "<group>"; };
+		F9FE418C17456684007C2473 /* AppDelegate+StatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+StatusBar.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +202,8 @@
 				F919A79E170DE92C0049D30C /* AppDelegate.m */,
 				F93C2D69171D959500D124F0 /* AppDelegate+Navigation.h */,
 				F93C2D6A171D959500D124F0 /* AppDelegate+Navigation.m */,
+				F9FE418B17456684007C2473 /* AppDelegate+StatusBar.h */,
+				F9FE418C17456684007C2473 /* AppDelegate+StatusBar.m */,
 				F919A7DD170DF3D70049D30C /* view */,
 				F919A79F170DE92C0049D30C /* controllers */,
 			);
@@ -351,6 +356,7 @@
 				F93C2D6E171D95DC00D124F0 /* WebViewController.m in Sources */,
 				F9B5E31D1743D84E004FAC19 /* ContentViewController.m in Sources */,
 				F9B5E3201743DCF9004FAC19 /* CategoriesViewController.m in Sources */,
+				F9FE418D17456684007C2473 /* AppDelegate+StatusBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

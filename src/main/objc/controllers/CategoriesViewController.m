@@ -15,15 +15,23 @@
 
 #import "CategoriesViewController.h"
 #import "AFNetworking.h"
+#import "AppDelegate+StatusBar.h"
 
 @interface CategoriesViewController()
 {
     NSMutableArray *categories;
     AFJSONRequestOperation *operation;
+    NSDictionary *currentCategory;
 }
 
 @end
 @implementation CategoriesViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    currentCategory = nil;
+}
 
 - (void)showCategories
 {
@@ -36,7 +44,7 @@
         NSString *url = @"http://blogirame.mk/jsonapi/categories/";
         NSURL *base = [NSURL URLWithString:url];
         NSURLRequest *req = [NSURLRequest requestWithURL:base];
-        
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] showNetworkActivityIndicator];
         operation = [AFJSONRequestOperation
                      JSONRequestOperationWithRequest:req
                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -44,9 +52,11 @@
                          categories = nil;
                          categories = [NSMutableArray arrayWithArray:result];
                          [myTableView reloadData];
+                         [(AppDelegate *)[[UIApplication sharedApplication] delegate] hideNetworkActivityIndicator];
                      }
                      failure:^(NSURLRequest *request, NSURLResponse *response, NSError *error ,id JSON) {
                          NSLog(@"%@",[error debugDescription]);
+                         [(AppDelegate *)[[UIApplication sharedApplication] delegate] hideNetworkActivityIndicator];
                      }];
         
         [operation start];
@@ -58,7 +68,7 @@
 #pragma mark UITableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [categories count];
+    return [categories count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,12 +77,55 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CategoryCell"];
     }
-    NSDictionary *category = [categories objectAtIndex:indexPath.row];
-    [cell.textLabel setText:[category valueForKey:@"name"]];
+    if (indexPath.row == 0) {
+        [cell.textLabel setText:@"All"];
+        if (!currentCategory) {
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        } else {
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+    } else {
+        NSDictionary *category = [categories objectAtIndex:indexPath.row - 1];
+        [cell.textLabel setText:[category valueForKey:@"name"]];
+        if ([[category valueForKey:@"slug"] isEqual:[currentCategory valueForKey:@"slug"]]) {
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        } else {
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+    }
     return cell;
+}
+
+- (void)resetCategories
+{
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *category = nil;
+    if (indexPath.row != 0) {
+        category = [categories objectAtIndex:indexPath.row - 1];
+    } else {
+        currentCategory = nil;
+    }
+    
+    BOOL categoryChanged = !(currentCategory && [[currentCategory valueForKey:@"slug"] isEqual:[category valueForKey:@"slug"]]);
+    currentCategory = nil;
+    currentCategory = [[NSDictionary alloc] initWithDictionary:category];
+    [[NSNotificationCenter defaultCenter] postNotificationName:N_CATEGORY_SELECTED
+                                                        object:nil
+                                                      userInfo:currentCategory];
+    if (categoryChanged) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:N_CATEGORY_CHANGED
+                                                            object:nil
+                                                          userInfo:currentCategory];
+    }
+}
+
+- (NSDictionary *)currentCategory
+{
+    return currentCategory;
 }
 @end
+

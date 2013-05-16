@@ -13,10 +13,14 @@
  * @(#) $$Id: CategoriesViewController.h 69 2011-05-06 14:26:45Z djovanos $$
  */
 
+#define N_CATEGORY_SELECTED @"Category Selected Notification"
+#define N_CATEGORY_CHANGED @"Category Selected Notification"
+
 @interface CategoriesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UITableView *myTableView;
 }
 
 - (void)showCategories;
+- (NSDictionary *)currentCategory;
 @end

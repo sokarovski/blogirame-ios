@@ -13,21 +13,37 @@
 #import "Utils.h"
 #import "AppDelegate.h"
 #import "AppDelegate+Navigation.h"
+#import "AppDelegate+StatusBar.h"
+#import "CategoriesViewController.h"
 
 @interface PostListViewController () {
     AFJSONRequestOperation *operation;
     NSMutableArray *newestEntriesHeights;
     NSMutableArray *topEntriesHeights;
     NSArray *currentEntriesArray;
+    NSString *currentSlug;
 }
 
 @end
 
 @implementation PostListViewController
 
+- (void)addObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserverForName:N_CATEGORY_CHANGED
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      if ([note userInfo]) {
+                                                          [self reloadItemsForCategory:[note userInfo]];
+                                                      }
+                                                  }];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    currentSlug = nil;
+    [self addObservers];
     //TODO show loading view
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -43,6 +59,20 @@
 }
 
 #pragma mark reloadView
+- (void)reloadItemsForCategory:(NSDictionary *)category
+{
+    newestPosts = nil;
+    topPosts = nil;
+    currentSlug = nil;
+    currentSlug = [category valueForKey:@"slug"];
+    
+    if ([AppSettings shouldShowNewestPosts]) {
+        [self showNewestEntries];
+    } else {
+        [self showTopEntries];
+    }
+}
+
 - (void)showNewestEntries
 {
     if (!newestPosts) {
@@ -127,9 +157,16 @@
 - (void)fetchNewestPostsList
 {
     if (!newestPosts) {
-        NSString *url = @"http://blogirame.mk/jsonapi/main";
+        NSString *url = nil;
+        if (currentSlug) {
+            url = [NSString stringWithFormat:@"http://blogirame.mk/jsonapi/category/in/%@/", currentSlug];
+        } else {
+            url = @"http://blogirame.mk/jsonapi/main";
+        }
         NSURL *base = [NSURL URLWithString:url];
         NSURLRequest *req = [NSURLRequest requestWithURL:base];
+        
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] showNetworkActivityIndicator];
         
         operation = [AFJSONRequestOperation
                      JSONRequestOperationWithRequest:req
@@ -157,8 +194,10 @@
                              currentEntriesArray = newestPosts;
                              [myTableView reloadData];
                          }
+                         [(AppDelegate *)[[UIApplication sharedApplication] delegate] hideNetworkActivityIndicator];
                      }
                      failure:^(NSURLRequest *request, NSURLResponse *response, NSError *error ,id JSON) {
+                         [(AppDelegate *)[[UIApplication sharedApplication] delegate] hideNetworkActivityIndicator];
                          NSLog(@"%@",[error debugDescription]);
                      }];
         
@@ -169,10 +208,16 @@
 - (void)fetchTopPostsList
 {
     if (!topPosts) {
-        NSString *url = @"http://blogirame.mk/jsonapi/main/order/popular/";
+        NSString *url = nil;
+        if (currentSlug) {
+            url = [NSString stringWithFormat:@"http://blogirame.mk/jsonapi/category/order/popular/in/%@/", currentSlug];
+        } else {
+            url = @"http://blogirame.mk/jsonapi/main/order/popular/";
+        }
+        
         NSURL *base = [NSURL URLWithString:url];
         NSURLRequest *req = [NSURLRequest requestWithURL:base];
-        
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] showNetworkActivityIndicator];
         operation = [AFJSONRequestOperation
                      JSONRequestOperationWithRequest:req
                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -201,9 +246,11 @@
                              currentEntriesArray = topPosts;
                              [myTableView reloadData];
                          }
+                         [(AppDelegate *)[[UIApplication sharedApplication] delegate] hideNetworkActivityIndicator];
                      }
                      failure:^(NSURLRequest *request, NSURLResponse *response, NSError *error ,id JSON) {
                          NSLog(@"%@",[error debugDescription]);
+                         [(AppDelegate *)[[UIApplication sharedApplication] delegate] hideNetworkActivityIndicator];
                      }];
         
         [operation start];

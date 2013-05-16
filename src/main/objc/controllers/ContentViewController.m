@@ -52,8 +52,10 @@
     }
     
     if ([AppSettings shouldShowNewestPosts]) {
+        [self.navigationItem setTitle:@"Newest Entries"];
         [self.navigationItem setRightBarButtonItem:topButtonItem];
     } else {
+        [self.navigationItem setTitle:@"Top Entries"];
         [self.navigationItem setRightBarButtonItem:newestButtonItem];
     }
     
@@ -71,14 +73,31 @@
     
     if (!categoriesVC) {
         categoriesVC = [[CategoriesViewController alloc] initWithNibName:@"CategoriesViewController" bundle:nil];
+        CGRect categoriesFrame = categoriesVC.view.frame;
+        categoriesFrame.origin.y = -44;
+        categoriesFrame.size.height += 44;
+        [categoriesVC.view setFrame:categoriesFrame];
     }
     [self.view insertSubview:categoriesVC.view belowSubview:itemsVC.view];
     [self addChildViewController:categoriesVC];
 }
 
+- (void)addObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserverForName:N_CATEGORY_SELECTED
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      if ([note userInfo]) {
+                                                          [self reloadCategory:[note userInfo]];
+                                                      }
+                                                  }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self addObservers];
     [self setupNavigationBar];
     [self createChildViews];
 }
@@ -90,8 +109,8 @@
         [self hideSideMenu];
     }
     [AppSettings setNewestPostsAsDefault];
-    [self.navigationItem setTitle:@"Newest Entries"];
     [self.navigationItem setRightBarButtonItem:topButtonItem];
+    [self.navigationItem setTitle:@"Newest Entries"];
     [itemsVC showNewestEntries];
 }
 
@@ -102,8 +121,8 @@
     }
     
     [AppSettings setTopPostsAsDefault];
+    [self.navigationItem setRightBarButtonItem:newestButtonItem];\
     [self.navigationItem setTitle:@"Top Entries"];
-    [self.navigationItem setRightBarButtonItem:newestButtonItem];
     [itemsVC showTopEntries];
 }
 
@@ -117,31 +136,36 @@
     }
 }
 
+- (void)reloadCategory:(NSDictionary *)category
+{
+    [self hideSideMenu];
+}
+
 - (void)showSideMenu
 {
     sideMenuVisible = YES;
-    CGPoint origin = CGPointMake(250, 0);
-    [UIView animateWithDuration:0.3
-                     animations:^{
-                         CGRect itemsFrame = itemsVC.view.frame;
-                         itemsFrame.origin = origin;
-                         [itemsVC.view setFrame:itemsFrame];
-                     }
-                     completion:^(BOOL finished) {
-    }];
+    [self animateSideMenuToX:250];
 }
 
 - (void)hideSideMenu
 {
     sideMenuVisible = NO;
-    CGPoint origin = CGPointMake(0, 0);
+    [self animateSideMenuToX:0];
+}
+
+- (void)animateSideMenuToX:(float)x
+{
     [UIView animateWithDuration:0.3
                      animations:^{
                          CGRect itemsFrame = itemsVC.view.frame;
-                         itemsFrame.origin = origin;
+                         itemsFrame.origin.x = x;
                          [itemsVC.view setFrame:itemsFrame];
+                         CGRect barFrame = self.navigationController.navigationBar.frame;
+                         barFrame.origin.x = x;
+                         [self.navigationController.navigationBar setFrame:barFrame];
                      }
                      completion:^(BOOL finished) {
-    }];
+                     }];
 }
+
 @end

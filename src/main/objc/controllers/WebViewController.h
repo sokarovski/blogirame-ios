@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WebViewController : UIViewController <UIWebViewDelegate, NSCoding>
+@interface WebViewController : UIViewController <UIWebViewDelegate, NSCoding, UIActionSheetDelegate>
 @property (nonatomic, strong) NSDictionary *postEntry;
 @end

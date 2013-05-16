@@ -7,17 +7,30 @@
 //
 
 #import "WebViewController.h"
+#import "AppDelegate+StatusBar.h"
 
 @interface WebViewController () {
     UIWebView *aWebView;
+    UIBarButtonItem *shareButton;
 }
 @end
 
 @implementation WebViewController
 
+- (void)setupNavigationItem
+{
+    if (!shareButton) {
+        shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                    target:self
+                                                                    action:@selector(shareItem)];
+    }
+    [self.navigationItem setRightBarButtonItem:shareButton];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupNavigationItem];
     [self setupView];
     [self loadWebView];
 }
@@ -37,18 +50,21 @@
 {
     NSURL *requestURL = [NSURL URLWithString:[self.postEntry valueForKey:@"mobile_url"]];
     if (requestURL) {
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] showNetworkActivityIndicator];
         [aWebView loadRequest:[NSURLRequest requestWithURL:requestURL]];
     }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hideNetworkActivityIndicator];
     [self resizeForm];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     //TODO Show alert
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] hideNetworkActivityIndicator];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
@@ -78,6 +94,50 @@
         self.postEntry = [coder decodeObjectForKey:@"postEntry"];
     }
     return self;
+}
+
+#pragma mark Share
+- (void)shareByActivityController
+{
+    NSArray *activityItems = [NSArray arrayWithObjects:
+                              [postEntry valueForKey:@"title"], [postEntry valueForKey:@"url"],  nil];
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems
+                                                                             applicationActivities:nil];
+    activityVC.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll];
+    [self presentViewController:activityVC animated:YES completion:nil];
+    
+    [activityVC setCompletionHandler:^(NSString *activityType, BOOL completed) {
+        NSLog(@"Activity = %@",activityType);
+        NSLog(@"Completed Status = %d",completed);
+        
+        if (completed) {
+            //TODO maybe nothing
+        } else {
+            //TODO show alert
+        }
+    }];
+    
+}
+
+- (void)shareByActionSheet
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share post"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Email", @"Twitter", @"Facebook", nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void)shareItem
+{
+    Class class = NSClassFromString(@"UIActivityViewController");
+    if (class) {
+        [self shareByActivityController];
+    } else {
+        [self shareByActionSheet];
+    }
 }
 @synthesize postEntry;
 @end
